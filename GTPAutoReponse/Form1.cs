@@ -15,6 +15,8 @@ namespace GTPAutoReponse
 {
     public partial class Form1 : Form
     {
+        ////////////////////////////////
+        ///获取窗口句柄
         [DllImport("user32.dll")]
         private extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
         [DllImport("user32.dll")]
@@ -79,7 +81,7 @@ namespace GTPAutoReponse
 
         //遗留连接SqlServer代码
         /*
-        string connStr = "Data source=LAPTOP-EJLC5ICS;Initial Catalog=GTPExam;User ID=bkygtpuser;Password=gtp2009";
+        string connStr = "Data source=<IP>;Initial Catalog=GTPExam;User ID=bkygtpuser;Password=gtp2009";
         SqlConnection conn = null;
         SqlDataReader dr = null;
         SqlCommand cmd = null;
@@ -193,6 +195,11 @@ namespace GTPAutoReponse
                 SendMessage(my4, WM_GETTEXT, buffer_size, QuestionBuffer);
                 //测试使用，输出题目信息
                 //MessageBox.Show(QuestionBuffer.ToString());
+                //题目显示到文本框
+                textBox16.Text = QuestionBuffer.ToString();
+
+                //模糊查询预处理
+                //!!!影响查询正确率!!!
                 string temp = QuestionBuffer.ToString();
                 temp = temp.Replace("-", "_");
                 temp = temp.Substring(0, temp.Length - 1);
@@ -661,6 +668,11 @@ namespace GTPAutoReponse
         private void button8_Click(object sender, EventArgs e)
         {
             conn.Close();
+        }
+
+        private void textBox16_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
